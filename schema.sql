@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS progress_change CASCADE;
+DROP TABLE IF EXISTS progress_change_log CASCADE;
 DROP TABLE IF EXISTS progress CASCADE;
 DROP TABLE IF EXISTS lab_events CASCADE;
 DROP TABLE IF EXISTS lab_assignments CASCADE;
@@ -173,7 +173,7 @@ CREATE TABLE progress (
         ON UPDATE CASCADE
 );
 
-CREATE TABLE progress_change (
+CREATE TABLE progress_change_log (
     change_id VARCHAR(7) PRIMARY KEY,
     progress_id CHAR(12),
     changed_by VARCHAR(20) NOT NULL,
