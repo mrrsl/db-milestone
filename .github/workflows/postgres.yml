@@ -1,0 +1,53 @@
+name: PostgreSQL Setup and Testing
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  setup-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run populate.py to generate seed_data.sql
+        run: python populate.py
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Create database and run SQL scripts
+        env:
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: postgres
+        run: |
+          # Create the milestone database
+          psql -c "CREATE DATABASE milestone;"
+          
+          # Connect to milestone and run the SQL scripts
+          psql -d milestone -f schema.sql
+          psql -d milestone -f seed_data.sql
+          psql -d milestone -f test.queries.sql
