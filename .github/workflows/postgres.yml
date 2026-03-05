@@ -48,4 +48,4 @@ jobs:
           psql -c "CREATE DATABASE milestone;"
           
           # Connect to milestone and run the SQL scripts
-          psql -d milestone -f -v ON_ERROR_STOP=1 schema.sql && psql -v ON_ERROR_STOP=1 -d milestone -f seed_data.sql && psql -v ON_ERROR_STOP=1 -d milestone -f test.queries.sql
+          psql -v ON_ERROR_STOP=1 -d milestone -f schema.sql && psql -v ON_ERROR_STOP=1 -d milestone -f seed_data.sql && psql -v ON_ERROR_STOP=1 -d milestone -f test.queries.sql
