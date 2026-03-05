@@ -146,7 +146,7 @@ CREATE TABLE progress (
     status VARCHAR(15) NOT NULL,
     prepared BOOLEAN DEFAULT FALSE,
     attendance VARCHAR(10) NOT NULL,
-    in_lab_submitted_at TIMESTAMP,
+    inlab_submitted_at TIMESTAMP,
     in_lab_submission_link TEXT,
     polished_submitted_at TIMESTAMP,
     polished_submission_link TEXT,
