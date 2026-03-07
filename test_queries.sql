@@ -93,12 +93,12 @@ SELECT COUNT(*) FROM lab_events;
 SELECT COUNT(DISTINCT event_id)
 from lab_events;
 
--- Checks for terms:
-SELECT COUNT(*) FROM terms;
+-- Checks for users:
+SELECT COUNT(*) FROM users;
 -- expect 3
 
-SELECT COUNT(DISTINCT term_code)
-from terms;
+SELECT COUNT(DISTINCT user_id)
+from users;
 
 -- Checks for progress:
 SELECT COUNT(*) FROM progress;
