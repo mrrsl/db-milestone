@@ -18,7 +18,7 @@ change_id - This PK is able to uniquly identify each change that was added to th
 Constraints
 
 progress_change_log 
-- The constraints for this table were a porgress_id as a FK, changed_by being a NOT NULL FK referencing the student who changed the lab, and changed_at and field are NOT NULL as if something is changed, it has a time, and there is a field that was changed.
+- The constraints for this table were a porgress_id as a FK, changed_by being a NOT NULL FK referencing the student who changed the lab, and changed_at and field are NOT NULL as if something is changed, it has a time, and there is a field that was changed. Also has a default for the changed_at as the time of the table being updated.
 progress
 -Student_id, lab_number and event ID are all Not NULL FK's, as the porgress is directly referencing work done by a certian student, for a lab during an event. Attendance and status are both NOT NULL as the student is either here or absent, and eother working or done.
 lab_events 
