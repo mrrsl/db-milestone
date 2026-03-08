@@ -238,33 +238,90 @@ FROM students;
 SELECT COUNT(*) FROM lab_assignments;
 -- expect 8
 
+-- Check that every assignment_id is unique
 SELECT COUNT(DISTINCT assignment_id)
 from lab_assignments;
+
+-- Check that every lab assignment reference a valid course
+SELECT COUNT(*)
+FROM lab_assignments la
+LEFT JOIN courses c 
+ON la.course_code = c.course_code
+WHERE c.course_code IS NULL;
+-- expect 0
 
 -- Checks for lab_events:
 SELECT COUNT(*) FROM lab_events;
 -- expect 18
 
+-- Check that every event_id is unique
 SELECT COUNT(DISTINCT event_id)
 from lab_events;
+-- expect 18
+
+-- Check that every event belongs to a valid section
+SELECT COUNT(*)
+from lab_events le
+LEFT JOIN section s
+ON le.section_coce = s.section_code
+WHERE s.section_code IS NULL;
+-- expect 0
 
 -- Checks for users:
 SELECT COUNT(*) FROM users;
 -- expect 3
 
+-- Check that every user_id is unique
 SELECT COUNT(DISTINCT user_id)
 from users;
+-- expect 3
+
+-- Check that every user belongs to a valid user
+SELECT COUNT(*)
+FROM progress_change_log pcl
+LEFT JOIN user u
+ON pcl.change_by = u.user_id
+WHERE u.user_id IS NULL;
+-- expect 0
 
 -- Checks for progress:
 SELECT COUNT(*) FROM progress;
--- expect 37
+-- expect 36
 
+-- Check that every progress_id is unique
 SELECT COUNT(DISTINCT progress_id)
 from progress;
+-- expect 36
+
+-- Check that every progress references a valid event
+SELECT COUNT(*)
+from progress p
+LEFT JOIN lab_events e
+ON p.event_id = e.event_id
+WHERE e.event_id IS NULL;
+-- expect 0
+
+-- Check that every progress record must reference a real student
+SELECT COUNT(*)
+FROM progress p
+LEFT JOIN students s
+ON p.student_id = s.student_id
+WHERE s.student_id IS NULL;
+-- expect 0
 
 -- Checks for progress_change_log:
 SELECT COUNT(*) FROM progress_change_log;
 -- expect 3
 
+-- Check that every change_id is unique
 SELECT COUNT(DISTINCT change_id)
 from progress_change_log;
+-- expect 3
+
+-- Check that every change log must reference a real progress record. 
+SELECT COUNT(*)
+FROM progress_change_log pcl
+LEFT JOIN progress p
+ON pcl.progress_id = p.progress_id
+WHERE p.progress_id IS NULL;
+-- expect 0
