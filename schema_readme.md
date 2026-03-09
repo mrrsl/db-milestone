@@ -14,7 +14,7 @@ course_code - The title of the course may be unique, but isn't guaranteed to be,
 
 section_code - Out of the non-FK attributes, only the section_code would uniquely identify each section.
 
-assignment_id - This PK can uniquely identify each student's assignment, since other attributes such as course_code and term_code can be the same (they are FKs).
+lab_number – This was chosen as the primary key for the lab_assignments table because it uniquely identifies each lab assignment. Other attributes such as course_code and term_code are foreign keys and may repeat across different assignments, so they cannot uniquely identify each record.
 
 event_id - Using this as the PK allows for it to be unqiuely identified amongst all other lab events, instead of using FK attributes like section_code, course_code, or term_code (which can be the same between lab events).
 
@@ -26,7 +26,7 @@ Constraints:
 
 progress_change_log
 
-- The constraints for this table were a progress_id as a FK, changed_by being a NOT NULL FK referencing the student who changed the lab, and changed_at, and field are NOT NULL because if something is changed, it has a time, and there is a field that was changed. Also it has a default for the changed_at as the time of the table being updated.
+- The constraints for this table were a progress_id as a FK, changed_by being a NOT NULL FK referencing the user who changed the lab, and changed_at, and field are NOT NULL because if something is changed, it has a time, and there is a field that was changed. Also it has a default for the changed_at as the time of the table being updated.
   progress
   -Student_id, lab_number and event ID are all NOT NULL FK's, as the progress is directly referencing work done by a certian student, for a lab during an event. Attendance and status are both NOT NULL as the student is either here or absent, and eother working or done.
   lab_events
@@ -63,3 +63,6 @@ there are not explicit indexing, but as PK's automaticaly create them, we used t
 The indexes used are there to specify which data we want to return, and speeds up the process of the data's retrival.
 
 ## PK adjustments
+Initially, assignment_id seemed like a natural choice for the primary key of lab_assignments, but in the final schema lab_number was used as the primary key instead. This was done because the implemented table defines lab_number as the primary key, while assignment_id remains a regular attribute. 
+
+For the other tables, the original primary key choices were kept because each chosen key uniquely identifies a row and matches the implemented schema.
