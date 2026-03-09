@@ -18,44 +18,37 @@ lab_number – This was chosen as the primary key for the lab_assignments table 
 
 user_id: This was chosen as a PK since no user should have the same ID as another, while display names, roles, and/or emails can be shared by multiple users.
 
-progress_id: The table is made up of many attributes that are not unique to a single item on the table (including FKs), so a progress_id number was needed to uniquely identify each entry on the table.
+progress_id: The progress table is made up of many attributes that are not unique to a single item on the table (including FKs), so a progress_id number was needed to uniquely identify each entry on the table.
 
 change_id: This PK is able to uniquely identify each change that was added to the table.
 
 Constraints:
 
 Terms:
-
-Name, Start date and End Date were NOT NULL as they are required for a course. A cant never start or end, and needs to be called something
+name, start_date and end_date are NOT NULL as they are required for a term. Each term has a year-and-season-associated name and start and end dates.
 
 Sets:
-
-Contained no Constriants. As a set has the ability to be split among campuses.
+Sets are split across campuses (A to D belong to Burnaby, E to F belong to Downtown). Both attributes are NOT NULL.
 
 Courses:
-
-Credits and title are NOT NULL as they are required for each course. A course can have 0 credits, but it must be stated.
-students
+credits and title are NOT NULL because they are required for each course (even if there are zero credits for a course, for example, this must be stated).
 
 Sections:
+Every attribute in this table is NOT NULL. Each section must be assigned an ID, has a type, takes place on a certain day of the week (same day for every week), starts and ends at a specific time (same time for every week), takes place at a location (same location each week), and is tied to a certain set, term, and course. course_code, term_code, and set_code are all FKs, and a section is a dependant on all three for its existance.
 
 Students:
+Every attribute in this table is NOT NULL. Every student has an ID, belongs to a set, has a first and last name, and is assigned a BCIT student email.
 
 Lab_assignments:
-
--Course_code and term_code are Not NULL Foreign Keys, as every assignment must belong to a course and term.
-sections
--course_code, term_code, and set_code all have the contraints of being a FK, on delete CASCADE, and NOT NULL. As a section is a dependant on all three for its existance.
+course_code and term_code are NOT NULL FKs, as every assignment is associated with a course and term. The other non-PK attributes of lab_number and title are also NOT NULL, since each lab is
 
 Lab_events:
-
-# <<<<<<< HEAD
 
 - The constraints for this table were a progress_id as a FK, changed_by being a NOT NULL FK referencing the user who changed the lab, and changed_at, and field are NOT NULL because if something is changed, it has a time, and there is a field that was changed. Also it has a default for the changed_at as the time of the table being updated.
   progress
   -Student_id, lab_number and event ID are all NOT NULL FK's, as the progress is directly referencing work done by a certian student, for a lab during an event. Attendance and status are both NOT NULL as the student is either here or absent, and eother working or done.
   lab_events
-  > > > > > > > 85c4416f08532792d144d36ca6fa0c880bec1ba6
+
 - Lab*number, Course* , term* and section* code, are all NOT NULL FKs, as each event is tied to a Lab, in a section, in a course, in a term. The due_date is also NOT NULL as each event must have a due date.
 
 Users:
