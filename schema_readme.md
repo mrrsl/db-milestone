@@ -63,15 +63,17 @@ progress_id is a FK referencing the progress table. changed_by is a NOT NULL FK 
 
 Referential actions
 
-students
+Students:
+The set_code foreign key uses ON DELETE SET NULL and ON UPDATE CASCADE. If a set is deleted, the stuent's set_code will be set to NULL so the student record can still exist. If the set_code value is updated, in the sets table, the change will automatically propagate to the students table.
 
-- This has a action of ON DELETE SET NULL and ON UPDATE CASCADE for its set_code FK. These are there to allow deletion, of a student if a set is deleted, the student will still exist, just with a NULL set, and if set_code is updated, the update will also apply to the student.
-  Sections
-- This has 3 FK, with the same referential actions in ON DELETED CASCADE, ON UPDATE CASCADE, so when the FK is deleted, the section referencing it is also deleted, and when the FK is updated, the section table with the old values is also updated.
-  Lab Assignments, progress, Lab_events
-  -These has the same as type of referential action in ON DELETE CASCADE, ON UPDATE CASCADE. They depend are child entites of another, so when that entity is deleted or changed, they must be a well.
-  Progress change log
-- this has the ON DELETE SET NULL and ON UPDATE CASCADE for its two FK's. this allows the change log to exist after both users or the progress have been deleted.
+Sections:
+The foreign keys course_code, term_code, and set_code use ON DELETE CASCADE and ON UPDATE CASCADE. Since sections depend on these parent tables, deleting a referenced record will also delete related section rows. Updates to the parent keys will automatically update the corresponding values in the sections table.
+
+Lab Assignments, progress, Lab_events:
+These tables use ON DELETE CASCADE and ON UPDATE CASCADE for their foreign keys. They are dependent child entities of other tables, so if a parent record is deleted or updated, the related rows in these tables will also be deleted or updated to maintain referential integrity.
+
+Progress change log:
+This table uses ON DELETE SET NULL and ON UPDATE CASCADE for its foreign keys. This allows the change log to remain in the database even if the associated user or progress record is removed, while still updating the foreign key values if the parent keys change.
 
 Indexing:
 
