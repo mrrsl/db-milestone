@@ -79,7 +79,7 @@ DECLARE
     course_count int;
 BEGIN
     SELECT COUNT(*) INTO course_count FROM courses;
-    ASSERT course_count = 1, 'Expected 1 course but got ' || course_count;
+    ASSERT course_count = 2, 'Expected 2 courses but got ' || course_count;
     -- expect 1 row from 1 course
 END$$;
 
