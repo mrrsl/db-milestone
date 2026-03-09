@@ -2,8 +2,7 @@ Design notes:
 
 PK choices:
 
-user_id - This was chosen as a PK since no user should have the same ID as another, while display names,
-roles, and/or emails can be shared by multiple users.
+user_id - This was chosen as a PK since no user should have the same ID as another, while display names, roles, and/or emails can be shared by multiple users.
 
 term_code - This was chosen as a PK name, since start date, and end date may not be unique to one term, while ther term code will be unqiue.
 
@@ -11,7 +10,7 @@ set_code - The set table had two attributes and thus two options for the PK: set
 
 student_id - This was chosen as the PK because it will be unique to each student, while name, email, and set can be the same between different students.
 
-course_code - The title of the course may be unique, but isn't guarenteed to be, while the course code will be unique to each course, so course_code was chosen as the PK.
+course_code - The title of the course may be unique, but isn't guaranteed to be, while the course code will be unique to each course, so course_code was chosen as the PK.
 
 section_code - Out of the non-FK attributes, only the section_code would uniquely identify each section.
 
@@ -27,17 +26,17 @@ Constraints:
 
 progress_change_log
 
-- The constraints for this table were a porgress_id as a FK, changed_by being a NOT NULL FK referencing the student who changed the lab, and changed_at and field are NOT NULL as if something is changed, it has a time, and there is a field that was changed. Also has a default for the changed_at as the time of the table being updated.
+- The constraints for this table were a progress_id as a FK, changed_by being a NOT NULL FK referencing the student who changed the lab, and changed_at, and field are NOT NULL because if something is changed, it has a time, and there is a field that was changed. Also it has a default for the changed_at as the time of the table being updated.
   progress
-  -Student_id, lab_number and event ID are all Not NULL FK's, as the porgress is directly referencing work done by a certian student, for a lab during an event. Attendance and status are both NOT NULL as the student is either here or absent, and eother working or done.
+  -Student_id, lab_number and event ID are all NOT NULL FK's, as the progress is directly referencing work done by a certian student, for a lab during an event. Attendance and status are both NOT NULL as the student is either here or absent, and eother working or done.
   lab_events
-- Lab*number, Course* , term* and section* code, are all NOT NULL FK's, as each event is tied to a Lab, in a section, in a course, in a term. The due_date is also NOT NULL as each event must have a due date.
+- Lab*number, Course* , term* and section* code, are all NOT NULL FKs, as each event is tied to a Lab, in a section, in a course, in a term. The due_date is also NOT NULL as each event must have a due date.
   lab_assignments
-  -COurse_code and term_code are Not NULL Foreign Keys, as every assignment must belong to a course and term.
+  -course_code and term_code are NOT NULL foreign Keys, as every assignment must belong to a course and term.
   sections
   -course_code, term_code, and set_code all have the contraints of being a FK, on delete CASCADE, and NOT NULL. As a section is a dependant on all three for its existance.
   courses
-  -Credits and title are not NULL as they are required for each course. A course can have 0 credits, but it must be stated.
+  -Credits and title are NOT NULL as they are required for each course. A course can have 0 credits, but it must be stated.
   students
 - first name, last name and email are all NOT NULL, as they are neccesarry for a student to have, it also has a SET_code Foreign key that references sets.
   sets
