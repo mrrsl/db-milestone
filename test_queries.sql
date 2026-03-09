@@ -262,8 +262,8 @@ from lab_events;
 -- Check that every event belongs to a valid section
 SELECT COUNT(*)
 from lab_events le
-LEFT JOIN section s
-ON le.section_coce = s.section_code
+LEFT JOIN sections s
+ON le.section_code = s.section_code
 WHERE s.section_code IS NULL;
 -- expect 0
 
@@ -279,8 +279,8 @@ from users;
 -- Check that every user belongs to a valid user
 SELECT COUNT(*)
 FROM progress_change_log pcl
-LEFT JOIN user u
-ON pcl.change_by = u.user_id
+LEFT JOIN users u
+ON pcl.changed_by = u.user_id
 WHERE u.user_id IS NULL;
 -- expect 0
 
