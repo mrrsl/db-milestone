@@ -32,7 +32,7 @@ progress_change_log
   lab_events
 - Lab*number, Course* , term* and section* code, are all NOT NULL FKs, as each event is tied to a Lab, in a section, in a course, in a term. The due_date is also NOT NULL as each event must have a due date.
   lab_assignments
-  -course_code and term_code are NOT NULL foreign Keys, as every assignment must belong to a course and term.
+  -Course_code and term_code are Not NULL Foreign Keys, as every assignment must belong to a course and term.
   sections
   -course_code, term_code, and set_code all have the contraints of being a FK, on delete CASCADE, and NOT NULL. As a section is a dependant on all three for its existance.
   courses
